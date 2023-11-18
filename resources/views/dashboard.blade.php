@@ -10,7 +10,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                 {{ auth()->user()->name}}
-                {{ __("you're logged in!") }}
+                {{ __("you're logged in!") }}<br><br>
+                {{ __("Your account ID is") }}
+                {{ auth()->user()->id}} 
 <br><br>
                 <h2 class="font-semibold text-xl text-gray-800 ">
             {{ __('Available Funds: $') }} {{ auth()->user()->balance}}
