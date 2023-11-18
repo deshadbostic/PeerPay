@@ -52,4 +52,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+       public function sentTranfers()
+    {
+        return $this->hasMany(Transfer::class, 'sender_id');
+    }
+
+    public function receivedTranfers()
+    {
+        return $this->hasMany(Transfer::class, 'receiver_id');
+    }
 }
