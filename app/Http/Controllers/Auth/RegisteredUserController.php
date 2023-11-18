@@ -28,20 +28,37 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'number' => [ 'string', 'max:10'],
+            'address' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
+            'nationalID' => 'image|mimes:jpeg,png,jpg|max:2048',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'number' => $request->number,
+            'address' => $request->address,
+            'country' => $request->country,
             'password' => Hash::make($request->password),
         ]);
 
+        if ($request->hasFile('nationalID')) {
+            $imagePath = $request->file('nationalID')->store('nationalID_images', 'public');
+            // images will be stored in 'nationalID_images' directory on 'public' disk
+    
+            // Save $imagePath to the database
+            $user->update(['nationalID' => $imagePath]);
+        }
+
+        
         event(new Registered($user));
 
         Auth::login($user);
