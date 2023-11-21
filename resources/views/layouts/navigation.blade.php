@@ -26,7 +26,7 @@
 
 </x-nav-link>
 <x-nav-link :href="route('payees.index')" :active="request()->routeIs('payees.index')">
-                        {{ __('Add Payee') }}
+                        {{ __('Payees') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -94,7 +94,7 @@
 
 </x-responsive-nav-link>
 <x-responsive-nav-link :href="route('payees.index')" :active="request()->routeIs('payees.index')">
-                {{ __('Add Payee') }}
+                {{ __('Payees') }}
             </x-responsive-nav-link>
         </div>
 
