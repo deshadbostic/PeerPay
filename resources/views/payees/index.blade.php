@@ -1,5 +1,27 @@
 <x-app-layout>
+
     <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+      
+    <h2 class="font-semibold text-xl text-gray-800 ">Payees</h2>
+    <ul>
+        @foreach($payees as $payee)
+            <li>{{ $payee->name }} <br>({{ $payee->email }})</li><br>
+        @endforeach
+    </ul>
+    <br><br>
+    <h2 class="font-semibold text-xl text-gray-800 ">Add a Payee</h2>
+    
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
         <form method="POST" action="{{ route('payees.store') }}">
             @csrf
             <!-- Name -->
@@ -31,6 +53,6 @@
             </div>
         </form>
     </div>
-    
+
 
 </x-app-layout>
