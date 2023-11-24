@@ -1,3 +1,16 @@
+<?php
+use App\Models\User
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<body>
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -5,49 +18,64 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+<div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                {{ auth()->user()->name}}
-                {{ __("you're logged in!") }}<br><br>
-                {{ __("Your account ID is") }}
-                {{ auth()->user()->id}} 
-<br><br>
-                <h2 class="font-semibold text-xl text-gray-800 ">
-            {{ __('Available Funds: $') }} {{ auth()->user()->balance}}
-            
-        </h2>
+    <table class="table table-hover">
 
-        <br><br>
-                <h2 class="font-semibold text-xl text-gray-800 ">
-            {{ __('Transfer History') }} 
-            
-        </h2>    
-
-<ul>
-    @if(auth()->user()->sentTransfers)
-        @foreach(auth()->user()->sentTransfers as $transfer)
-            <li>{{ $transfer->created_at }} - Sent ${{ $transfer->amount }} to {{ $transfer->receiver->name }}</li>
-        @endforeach
-    @else
-        <li>No sent transfers</li>
-    @endif
-
-    @if(auth()->user()->receivedTransfers)
-        @foreach(auth()->user()->receivedTransfers as $transfer)
-            <li>{{ $transfer->created_at }} - Received ${{ $transfer->amount }} from {{ $transfer->sender->name }}</li>
-        @endforeach
-    @else
-        <li>No received transfers</li>
-    @endif
-</ul>
+    <thead>
 
 
-                </div>
+      <th><center>Your Balance:</center></th>
 
-              
-            </div>
-        </div>
+
+    </thead>
+
+    <tbody>
+
+        <tr>
+ 
+
+          <td class="text-success"><center>${{auth()->user()->account}}</center></td>
+
+          
+        </tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="container">
+  <div class="row align-items-start">
+  <div class="col" style="padding:10px;">
     </div>
+  <div class="col" style="padding:10px;">
+    </div>
+    <div class="col" style="padding:15px;">
+    <center> <a href="{{ url('addpayee') }}" style="padding:10px 50px 10px 50px;" class="btn btn-primary" >Add a Payee</center></a>
+    </div>
+    <div class="col" style="padding:15px;">
+    <center> <a href="{{ url('payees/') }}" style="padding:10px 50px 10px 50px;" class="btn btn-primary" >Make a Transfer</center></a>
+    </div>
+    <div class="col" style="padding:10px;">
+    </div>
+    <div class="col" style="padding:10px;">
+    </div>
+  </div>
+
+  <div class="container">
+  <div class="row align-items-start">
+    <div class="col" style="padding:20px;">
+    <center> <a href="{{ url('history/') }}" style="text-align:right;padding:10px 60px 10px 60px;" class="btn btn-primary" >View History</center></a>
+    </div>
+  </div>
+
+
+
 </x-app-layout>
+
+</body>
+</html>
