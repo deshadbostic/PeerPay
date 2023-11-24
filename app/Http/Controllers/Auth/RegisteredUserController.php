@@ -28,25 +28,27 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-     public function store(Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'number' => [ 'string', 'max:10'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'phone' => [ 'string', 'max:10'],
             'address' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
             'nationalID' => 'image|mimes:jpeg,png,jpg|max:2048',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'account' => ['string'],
         ]);
 
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'number' => $request->number,
+            'phone' => $request->phone,
             'address' => $request->address,
             'country' => $request->country,
+            'account' => $request->account,
             'password' => Hash::make($request->password),
         ]);
 
@@ -58,7 +60,6 @@ class RegisteredUserController extends Controller
             $user->update(['nationalID' => $imagePath]);
         }
 
-        
         event(new Registered($user));
 
         Auth::login($user);
@@ -66,3 +67,4 @@ class RegisteredUserController extends Controller
         return redirect(RouteServiceProvider::HOME);
     }
 }
+

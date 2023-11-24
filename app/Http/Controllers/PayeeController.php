@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Payee;
-use App\Models\User;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use App\Http\Controllers\Controller;
 
 class PayeeController extends Controller
 {
@@ -16,11 +14,7 @@ class PayeeController extends Controller
      */
     public function index()
     {
-        $payees = auth()->user()->payees;
-
-        return view('payees.index', [
-            'payees' => $payees,
-        ]);
+        //
     }
 
     /**
@@ -34,48 +28,61 @@ class PayeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-
-         public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'exists:users,email'],
-            'payee_accountNumber' => ['required', 'string', 'max:10', 'exists:users,id'],
-        ]);
-    
-        $user = $request->user();
 
-         // Check if the input corresponds to a registered user
-        $existingUser = User::where('name', $request->input('name'))
-        ->where('email', $request->input('email'))
-        ->where('id', $request->input('payee_accountNumber'))
-        ->first();
+        $payees = User::all();
+        $email = $request->get(key: 'email');
+        $payee_id = $request->get(key: 'acc');
+        $user_id = auth()->user()->id;
+        $user_email = auth()->user()->email;
 
-    if (!$existingUser) {
-        return redirect()->route('payees.index')->with('error', 'The input does not correspond to a registered user.');
-    }
-
-    
-        // Check if the user is adding themselves
-        if ($user->email === $request->input('email') || $user->id === $request->input('payee_accountNumber')) {
-            return redirect()->route('payees.index')->with('error', 'You cannot add yourself as a payee.');
+        if($user_email == $email)
+        {
+            return redirect('addemail');
         }
-    
-    
-        $existingPayee = Payee::where('email', $request->input('email'))->first() || Payee::where('payee_accountNumber', $request->input('payee_accountNumber'))->first() ;
-    
-        if ($existingPayee) {
-            return redirect()->route('payees.index')->with('error', 'The user is already added as a payee.');
+
+        if($user_id == $payee_id)
+        {
+            return redirect('addaccount');
         }
+
+        foreach($payees as $payee)
+        {
+
+        if($payee->email == $email)
+        {
+            Payee::create([
+
+                'user_id' => $user_id,
+                'payee_id' => $payee->id,
+                
     
-        // Create the payee
-        $payee = $user->payees()->create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'payee_accountNumber' => $request->input('payee_accountNumber'),
-        ]);
+            ]);
+
+            return redirect('payees');
+
+
+        }
+        if($payee->id == $payee_id)
+        {
+            Payee::create([
+
+                'user_id' => $user_id,
+                'payee_id' => $payee->id,
+                
     
-        return redirect()->route('payees.index')->with('success', 'Payee added successfully.');
+            ]);
+
+            return redirect('payees');
+        }
+        
+        
+
+        
+        }
+        return redirect('addemail');
+
     }
 
     /**
@@ -105,13 +112,8 @@ class PayeeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Payee $payee): RedirectResponse
+    public function destroy(Payee $payee)
     {
         //
-        $this->authorize('delete', $payee);
-
-        $payee->delete();
-
-        return redirect(route('payees.index'));
     }
 }
