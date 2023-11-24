@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nationalID')->nullable();
             $table->string('address');
             $table->string('country');
-            $table->double('account');
         });
     }
 
@@ -30,7 +29,6 @@ return new class extends Migration
             $table->dropColumn('phone');
             $table->dropColumn('address');
             $table->dropColumn('country');
-            $table->dropColumn('account');
         });
     }
 };
