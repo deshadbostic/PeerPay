@@ -45,19 +45,26 @@
 </div>
 </div>
 </div>
+
    
 <h2 style="padding-top:50px;padding-bottom:25px;" class="font-semibold text-xl text-gray-800 leading-tight">
           <center> Enter The Amount You would like to transfer.</center>
         </h2>
 
+ 
+
 <div class="container">
+
+
   <div class="row align-items-start">
   <div class="col" style="padding:5px;">
     </div>
   <div class="col" style="padding:5px;">
 
+  
 <form style="background-color:white;padding:50px;border-radius:20px;box-shadow:5px 5px 10px 2px #aaaaaa;margin-top:30px;" action="/transaction">
 @csrf
+
 <div class="form-group" method="POST">
 <label for="amount">Amount:</label>
 <input style="margin-bottom:15px" type="text" name="amount" class="form-control">

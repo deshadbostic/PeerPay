@@ -28,12 +28,17 @@
     </div>
   <div class="col" style="padding:5px;">
 
+    @if(session('message'))
+
+        <div class="alert alert-success">{{ session('message')}}</div>
+
+    @endif
 
   <form style="background-color:white;padding:30px;border-radius:20px;box-shadow:5px 5px 10px 2px #aaaaaa;" action="email">
             @csrf
             <div class="form-group" method="POST">
             <label for="email">Payee Email:</label>
-            <input type="text" name="email" class="form-control">
+            <input type="text" name="email" class="form-control" required>
             </div>
         <button style="margin-top:30px" type="submit" class="">Submit</button>
     </form>

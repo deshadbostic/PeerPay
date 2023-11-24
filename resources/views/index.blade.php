@@ -17,6 +17,13 @@
 
 <table class="table table-hover">
 
+@if(session('message'))
+
+  <div style="margin-top:20px;" class="alert alert-success"><center>{{ session('message')}}</center></div>
+
+@endif
+
+
     <thead>
 
       <th><center>Name</center></th>
