@@ -38,9 +38,14 @@ class TransactionController extends Controller
         $user = User::find($user_id);
         $payee = User::find($payee_id);
 
+        if($sent <= 0)
+        {
+            return redirect('payees')->with('message','You sent 0 Funds.');
+        }
+
         if($sent > $user->account)
         {
-            return redirect('payees');
+            return redirect('payees')->with('message','Insufficent Funds.');
         }
         else
         {

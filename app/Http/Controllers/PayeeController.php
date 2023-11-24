@@ -39,17 +39,19 @@ class PayeeController extends Controller
 
         if($user_email == $email)
         {
-            return redirect('addemail');
+            return redirect('addemail')->with('message','You cannot add your self as a Payee');
         }
 
         if($user_id == $payee_id)
         {
-            return redirect('addaccount');
+            return redirect('addaccount')->with('message','You cannot add your self as a Payee');
         }
 
         foreach($payees as $payee)
         {
 
+        if($email)
+        {
         if($payee->email == $email)
         {
             Payee::create([
@@ -64,6 +66,14 @@ class PayeeController extends Controller
 
 
         }
+        else
+        {
+            return redirect('addemail')->with('message','Payee was not found.');
+        }
+        }
+
+        if($payee_id)
+        {
         if($payee->id == $payee_id)
         {
             Payee::create([
@@ -74,14 +84,17 @@ class PayeeController extends Controller
     
             ]);
 
-            return redirect('payees');
+            return redirect('payee');
         }
-        
+        else
+        {
+            return redirect('addaccount')->with('message','Payee was not found.');
+        }
+        }
         
 
         
         }
-        return redirect('addemail');
 
     }
 
