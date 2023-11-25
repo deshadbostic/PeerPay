@@ -12,7 +12,7 @@
 </p> 
 
 <p class="text-md font-medium text-gray-900">
-            {{ __('Number: ' )}} {{ auth()->user()->number}}
+            {{ __('Number: ' )}} {{ auth()->user()->phone}}
 </p> 
 <p class="text-md font-medium text-gray-900">
             {{ __('Address: ' )}} {{ auth()->user()->address}}

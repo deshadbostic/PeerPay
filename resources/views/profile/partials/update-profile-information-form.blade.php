@@ -47,6 +47,31 @@
             @endif
         </div>
 
+
+        <div>
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $user->address)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('address')" />
+        </div>
+
+        <div>
+    <label for="country" class="block font-medium text-sm text-gray-700">{{ __('Country') }}</label>
+    <select id="country" name="country" class="mt-1 block w-full" required autofocus>
+        <!-- Add options for each country -->
+        <option value="barbados" {{ old('country', $user->country) === 'barbados' ? 'selected' : '' }}>Barbados</option>
+        <option value="trinidad" {{ old('country', $user->country) === 'trinidad' ? 'selected' : '' }}>Trinidad</option>
+        <!-- Add more options as needed -->
+    </select>
+    @error('country')
+        <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+    @enderror
+</div>
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
