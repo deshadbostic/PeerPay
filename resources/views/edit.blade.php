@@ -1,3 +1,5 @@
+@php use App\Models\User; @endphp
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,7 +50,7 @@
 
    
 <h2 style="padding-top:50px;padding-bottom:25px;" class="font-semibold text-xl text-gray-800 leading-tight">
-          <center> Enter The Amount You would like to transfer.</center>
+          <center> Enter The Amount You would like to transfer to:<p style="color:green">{{User::find($users->id)->email}}</p></center>
         </h2>
 
  
