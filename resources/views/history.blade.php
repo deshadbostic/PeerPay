@@ -23,7 +23,7 @@
     <thead>
 
 
-      <th><center>Your Balance:</center></th>
+      <th><center>User Account ID: {{auth()->user()->id}}</center></th>
 
 
     </thead>
@@ -32,8 +32,16 @@
 
         <tr>
  
+        <td><center>Your Balance:</center></td>
+         
 
-          <td class="text-success"><center>${{auth()->user()->account}}</center></td>
+          
+        </tr>
+
+        <tr>
+ 
+        <td class="text-success"><center>${{auth()->user()->account}}</center></td>
+          
 
           
         </tr>
