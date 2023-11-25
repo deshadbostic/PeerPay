@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone' => [ 'string', 'max:10'],
+            'phone' => 'required|regex:/[0-9]{10}/',
             'address' => ['required', 'string', 'max:255'],
             'country' => ['required', 'string', 'max:255'],
             'nationalID' => 'image|mimes:jpeg,png,jpg|max:2048',
