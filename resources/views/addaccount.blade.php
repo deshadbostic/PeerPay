@@ -17,7 +17,7 @@
             <br>
             <div class="container" style="background-color:white;padding:30px;border-radius:20px;box-shadow:5px 5px 10px 2px #aaaaaa; width:500px;" >
                 <h2 style="padding-top:50px;padding-bottom:25px;" class="font-semibold text-xl text-gray-800 leading-tight">
-                <center> Add a Payee Account Number</center>
+                <center> Add a Payee by Account Number</center>
                 </h2>
 
                 <div class="row align-items-start">
