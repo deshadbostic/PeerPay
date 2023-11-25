@@ -10,7 +10,11 @@
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Add a Payee') }}</h2>
             </x-slot>
-
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
             <div class="container" style="background-color:white;padding:30px;border-radius:20px;box-shadow:5px 5px 10px 2px #aaaaaa; width:500px;" >
                 <h2 style="padding-top:50px;padding-bottom:25px;" class="font-semibold text-xl text-gray-800 leading-tight">
                 <center> Add a Payee Account Number</center>
@@ -31,7 +35,7 @@
                                 <label for="acc">Payee Account No:</label>
                                 <input type="text" name="acc" class="form-control" required>
                             </div>
-                            <button style="margin-top:30px; background-color:#5a5; font-weight: bold" type="submit" class="">Submit</button>
+                            <button style="margin-top:30px; background-color:#5a7; font-weight: bold;" type="submit" class="btn">Submit</button>
                         </form>
                     </div>
                 </div>
