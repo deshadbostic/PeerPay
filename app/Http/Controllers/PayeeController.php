@@ -31,12 +31,12 @@ class PayeeController extends Controller
     public function store(Request $request)
     {
 
-        $payees = User::all();
+        
         $email = $request->get(key: 'email');
         $payee_id = $request->get(key: 'acc');
         $user_id = auth()->user()->id;
         $user_email = auth()->user()->email;
-
+        $payee = User::where('email', $email)->first();
         if($user_email == $email)
         {
             return redirect('addemail')->with('message','You cannot add your self as a Payee');
@@ -47,12 +47,8 @@ class PayeeController extends Controller
             return redirect('addaccount')->with('message','You cannot add your self as a Payee');
         }
 
-        foreach($payees as $payee)
-        {
-
-        if($email)
-        {
-        if($payee->email == $email)
+       
+        if($payee)
         {
             Payee::create([
 
@@ -68,13 +64,10 @@ class PayeeController extends Controller
         }
         else
         {
-            return redirect('addemail')->with('message','Payee was not found.');
-        }
+            return redirect('addemail')->with('message','Payee was not found.The payee email is not valid');
         }
 
-        if($payee_id)
-        {
-        if($payee->id == $payee_id)
+        if(User::where('user_id', $payee_id)->first())
         {
             Payee::create([
 
@@ -84,19 +77,14 @@ class PayeeController extends Controller
     
             ]);
 
-            return redirect('payee');
+            return redirect('payees');
         }
         else
         {
-            return redirect('addaccount')->with('message','Payee was not found.');
-        }
-        }
-        
-
-        
-        }
-
+            return redirect('addaccount')->with('message','Payee was not found. The payee id is not valid');
     }
+
+}
 
     /**
      * Display the specified resource.
